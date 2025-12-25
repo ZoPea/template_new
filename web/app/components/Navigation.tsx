@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navigation() {
   const pathname = usePathname()
@@ -73,6 +74,9 @@ export default function Navigation() {
                 )
               })}
             </div>
+          </div>
+          <div className="flex items-center">
+            <ThemeToggle />
           </div>
         </div>
       </div>

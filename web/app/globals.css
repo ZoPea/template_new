@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Dark mode variant for Tailwind v4 - must be before @theme */
+/* กำหนดให้ dark: variant ทำงานเมื่อ html มี class .dark */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,11 +16,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode CSS variables - ใช้เมื่อ html มี class dark */
+/* Tailwind v4 จะใช้ @custom-variant dark ด้านบนเพื่อ detect */
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
