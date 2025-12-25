@@ -2,6 +2,7 @@
 
 import { useTheme } from '@/lib/contexts/ThemeContext'
 import { useState, useEffect } from 'react'
+import { FiSun, FiMoon } from 'react-icons/fi'
 
 export default function ThemeToggle() {
   const { theme, setTheme, isThemeEnabled } = useTheme()
@@ -10,6 +11,7 @@ export default function ThemeToggle() {
 
   // ใช้ useEffect เพื่อ set mounted หลังจาก component mount แล้ว
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
@@ -30,11 +32,11 @@ export default function ThemeToggle() {
   }
 
   const getThemeIcon = () => {
-    return theme === 'light' ? '☀️' : '🌙'
-  }
-
-  const getThemeLabel = () => {
-    return theme === 'light' ? 'Light' : 'Dark'
+    return theme === 'light' ? (
+      <FiSun className="w-5 h-5 transition-colors duration-200 group-hover:text-yellow-500" />
+    ) : (
+      <FiMoon className="w-5 h-5 transition-colors duration-200 group-hover:text-blue-400" />
+    )
   }
 
   const getNextTheme = () => {
@@ -44,11 +46,11 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+      className="group p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center cursor-pointer"
       aria-label={`Switch to ${getNextTheme()} theme`}
+      title={`Switch to ${getNextTheme()} theme`}
     >
-      <span className="text-xl">{getThemeIcon()}</span>
-      <span className="text-sm font-medium">{getThemeLabel()}</span>
+      {getThemeIcon()}
     </button>
   )
 }
