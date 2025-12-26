@@ -1,6 +1,34 @@
-# Template Monorepo
+# 🚀 Next.js + React Native Template
 
-Monorepo สำหรับพัฒนา Web Application (Next.js) และ Mobile Application (React Native + Expo) พร้อม PostgreSQL และ Prisma
+Template สำหรับเริ่มต้นพัฒนา Web Application และ Mobile Application แบบ Monorepo พร้อม features พื้นฐานที่พร้อมใช้งาน
+
+## ✨ Template นี้เหมาะกับใคร?
+
+- 👨‍💻 **Developer** ที่ต้องการเริ่มโปรเจคใหม่เร็วๆ โดยไม่ต้อง setup เอง
+- 🏢 **Startup/Company** ที่ต้องการโครงสร้างโปรเจคมาตรฐาน
+- 🎓 **Student/Learner** ที่ต้องการเรียนรู้ Next.js + React Native
+- ⚡ **Anyone** ที่ต้องการ template ที่มี features พร้อมใช้งาน
+
+---
+
+## 🎯 Features ที่มีใน Template
+
+### ✅ **Core Features** (พร้อมใช้งาน)
+
+- **SPA (Single Page Application)** - Client-side routing, Fixed Navigation, Auto-hide Navbar
+- **Theme (Dark/Light Mode)** - พร้อม config เพื่อเปิด/ปิดได้
+- **Database Setup** - PostgreSQL + Prisma ORM พร้อมใช้งาน
+- **TypeScript** - Type safety พร้อม configuration
+- **Tailwind CSS v4** - Modern styling framework
+
+### 🔄 **Features ที่กำลังพัฒนา**
+
+- Toast Notification (Sonner)
+- SEO Optimization
+- Error Handling
+- และอื่นๆ (ดูรายละเอียดใน [FEATURES.md](./web/FEATURES.md))
+
+---
 
 ## 📁 โครงสร้างโปรเจค
 
@@ -8,39 +36,63 @@ Monorepo สำหรับพัฒนา Web Application (Next.js) และ M
 template/
 ├── web/                    # Next.js Web Application
 │   ├── app/               # Next.js App Router
-│   ├── lib/               # Utilities และ Prisma client
-│   ├── prisma/            # Prisma schema และ migrations
-│   └── public/            # Static assets
-├── mobile/                # React Native + Expo Mobile App
-│   ├── src/              # Source code
-│   └── assets/           # Images และ icons
-├── docker-compose.yml     # Docker services (PostgreSQL)
-└── README.md             # เอกสารนี้
+│   │   ├── components/   # Reusable components
+│   │   ├── api/          # API Routes
+│   │   └── ...
+│   ├── lib/              # Utilities และ configurations
+│   │   ├── contexts/    # React Contexts (Theme, etc.)
+│   │   ├── config/      # Feature configurations
+│   │   └── db/          # Prisma client
+│   ├── prisma/          # Database schema และ migrations
+│   └── public/          # Static assets
+├── mobile/               # React Native + Expo Mobile App
+│   ├── src/             # Source code
+│   └── assets/          # Images และ icons
+├── docker-compose.yml    # Docker services (PostgreSQL)
+└── README.md            # เอกสารนี้
 ```
 
 ---
 
-## 🚀 เริ่มต้นใช้งาน
+## 🚀 เริ่มต้นใช้งาน Template
 
-### ข้อกำหนดเบื้องต้น
-
-- **Node.js** >= 18.x
-- **Yarn** >= 1.22.x
-- **Docker** และ **Docker Compose** (สำหรับ PostgreSQL)
-- **Git**
-
----
-
-## 📦 การติดตั้ง
-
-### 1. Clone Repository
+### ขั้นตอนที่ 1: Clone หรือ Download Template
 
 ```bash
+# Clone repository
 git clone <repository-url>
 cd template
+
+# หรือ Download ZIP และ extract
 ```
 
-### 2. ติดตั้ง Dependencies
+### ขั้นตอนที่ 2: ตั้งชื่อโปรเจคใหม่ (Optional)
+
+```bash
+# เปลี่ยนชื่อ folder
+mv template my-project-name
+cd my-project-name
+
+# แก้ไข package.json ใน root และ web/mobile
+# เปลี่ยน "template-monorepo" เป็นชื่อโปรเจคของคุณ
+```
+
+---
+
+### ขั้นตอนที่ 3: ตรวจสอบข้อกำหนดเบื้องต้น
+
+ตรวจสอบว่าคุณมี tools เหล่านี้ติดตั้งแล้ว:
+
+- **Node.js** >= 18.x ([Download](https://nodejs.org/))
+- **Yarn** >= 1.22.x ([Install Guide](https://yarnpkg.com/getting-started/install))
+- **Docker** และ **Docker Compose** ([Install Guide](https://docs.docker.com/get-docker/)) - สำหรับ PostgreSQL
+- **Git** (สำหรับ version control)
+
+---
+
+## 📦 การติดตั้งและ Setup
+
+### 1. ติดตั้ง Dependencies
 
 ```bash
 # ติดตั้ง dependencies สำหรับ web
@@ -71,7 +123,7 @@ docker-compose ps
 
 ควรเห็น `app_postgres` ทำงานอยู่
 
-### 3. (Optional) ใช้ docker-compose.override.yml
+### 3. (Optional) ปรับแต่ง Database Configuration
 
 ถ้าต้องการเปลี่ยน username, password, หรือ database name:
 
@@ -83,9 +135,11 @@ cp docker-compose.override.example.yml docker-compose.override.yml
 # docker-compose จะอ่านไฟล์ override อัตโนมัติ
 ```
 
+**หมายเหตุ:** ถ้าเปลี่ยน database config ต้องอัพเดท `DATABASE_URL` ใน `.env` ด้วย
+
 ---
 
-## 🌐 Web Application (Next.js)
+## 🌐 Web Application Setup
 
 ### 1. ตั้งค่า Environment Variables
 
@@ -106,9 +160,11 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/app_db?schema=public
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-**หมายเหตุ:** ถ้าใช้ `docker-compose.override.yml` ให้แก้ไข `DATABASE_URL` ให้ตรงกับค่าที่ตั้งไว้
+**หมายเหตุ:** 
+- ถ้าใช้ `docker-compose.override.yml` ให้แก้ไข `DATABASE_URL` ให้ตรงกับค่าที่ตั้งไว้
+- ไฟล์ `.env` จะไม่ถูก commit ไป Git (อยู่ใน `.gitignore`)
 
-### 2. Setup Prisma
+### 2. Setup Database Schema
 
 ```bash
 cd web
@@ -119,9 +175,13 @@ yarn generate
 # Push schema ไปยัง database (สำหรับ development)
 yarn push
 
-# หรือใช้ migration (สำหรับ production)
+# หรือใช้ migration (สำหรับ production/team work)
 yarn migrate
 ```
+
+**ความแตกต่าง:**
+- `yarn push` - เร็ว, ไม่มี migration history (เหมาะสำหรับ development/prototyping)
+- `yarn migrate` - มี migration history, track changes (เหมาะสำหรับ production/team work)
 
 ### 3. (Optional) Seed Database
 
@@ -135,11 +195,11 @@ yarn seed
 yarn dev
 ```
 
-Web app จะรันที่ **http://localhost:3000**
+เปิด browser ไปที่ **http://localhost:3000** 🎉
 
 ---
 
-## 📱 Mobile Application (React Native + Expo)
+## 📱 Mobile Application Setup (Optional)
 
 **หมายเหตุ:** Mobile app ยังอยู่ในขั้นตอนพัฒนา
 
@@ -156,6 +216,58 @@ yarn start
 - Scan QR code ด้วย Expo Go app บนมือถือ
 
 ---
+
+## 🎨 การปรับแต่ง Template
+
+### 1. เปลี่ยนชื่อ App
+
+แก้ไขไฟล์ `web/app/layout.tsx`:
+```typescript
+export const metadata: Metadata = {
+  title: "ชื่อ App ของคุณ", // เปลี่ยนตรงนี้
+  description: "คำอธิบาย App ของคุณ",
+};
+```
+
+### 2. ปรับแต่ง Theme
+
+แก้ไขไฟล์ `web/lib/config/theme.ts`:
+```typescript
+export const themeConfig = {
+  enabled: true, // เปลี่ยนเป็น false เพื่อปิด theme feature
+  defaultTheme: 'light', // 'light' หรือ 'dark'
+  storageKey: 'theme-preference',
+}
+```
+
+### 3. ปรับแต่ง Navigation
+
+แก้ไขไฟล์ `web/app/components/Navigation.tsx`:
+- เปลี่ยน navigation items
+- ปรับแต่ง styling
+- เพิ่ม/ลบ menu items
+
+### 4. ปรับแต่ง Database Schema
+
+แก้ไขไฟล์ `web/prisma/schema.prisma`:
+```prisma
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  // เพิ่ม fields ตามต้องการ
+}
+```
+
+จากนั้นรัน:
+```bash
+yarn generate
+yarn push  # หรือ yarn migrate
+```
+
+---
+
+## 📚 เอกสารเพิ่มเติม
 
 ## 🛠️ คำสั่งที่ใช้บ่อย
 
@@ -197,35 +309,16 @@ yarn start
 
 ## 📚 เอกสารเพิ่มเติม
 
-- [Web App README](./web/README.md) - เอกสาร Next.js
+- [Web App README](./web/README.md) - เอกสาร Next.js แบบละเอียด
 - [Prisma Setup Guide](./web/README_PRISMA.md) - คู่มือ Prisma และ Database
+- [Features List](./web/FEATURES.md) - รายการ features ทั้งหมด
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [Expo Documentation](https://docs.expo.dev/)
 
 ---
 
-## 🗂️ โครงสร้าง Web App
-
-```
-web/
-├── app/
-│   ├── api/              # API Routes
-│   │   └── users/       # Example API endpoints
-│   ├── layout.tsx       # Root layout
-│   └── page.tsx         # Home page
-├── lib/
-│   └── db/
-│       └── prisma.ts    # Prisma client instance
-├── prisma/
-│   ├── schema.prisma    # Database schema
-│   └── seed.ts          # Seed script
-└── public/              # Static files
-```
-
----
-
-## 🔧 Troubleshooting
+## 🔧 แก้ไขปัญหาที่พบบ่อย
 
 ### PostgreSQL ไม่เชื่อมต่อได้
 
@@ -241,6 +334,12 @@ web/
 
 3. ตรวจสอบ `DATABASE_URL` ใน `.env` ให้ถูกต้อง
 
+4. ลอง restart Docker container:
+   ```bash
+   docker-compose down
+   docker-compose up -d
+   ```
+
 ### Prisma Client ไม่พบ
 
 ```bash
@@ -250,51 +349,122 @@ yarn generate
 
 ### Port 3000 ถูกใช้งานแล้ว
 
-แก้ไข port ใน `package.json`:
+แก้ไข port ใน `web/package.json`:
 ```json
 "dev": "next dev -p 3001"
 ```
 
+### Theme ไม่ทำงาน
+
+ตรวจสอบว่า:
+1. `themeConfig.enabled` ใน `web/lib/config/theme.ts` เป็น `true`
+2. `ThemeProvider` ถูก wrap ใน `web/app/layout.tsx`
+3. ไม่มี error ใน browser console
+
+### Build Error
+
+```bash
+# ลบ cache และ build ใหม่
+cd web
+rm -rf .next
+yarn build
+```
+
 ---
 
-## 🚢 Production Deployment
+## 🚢 Deploy ไปยัง Production
 
 ### Web App
 
-1. Build:
+1. **Build สำหรับ Production:**
    ```bash
    cd web
    yarn build
    ```
 
-2. ตั้งค่า environment variables บน hosting platform
+2. **ตั้งค่า Environment Variables:**
+   - บน hosting platform (Vercel, Netlify, etc.)
+   - ตั้งค่า `DATABASE_URL` สำหรับ production database
+   - ตั้งค่า `NEXT_PUBLIC_APP_URL` เป็น production URL
 
-3. Deploy ไปยัง Vercel, Netlify, หรือ platform อื่นๆ
+3. **Deploy:**
+   - **Vercel:** เชื่อมต่อ GitHub repo → Auto deploy
+   - **Netlify:** Drag & drop `web/.next` folder หรือใช้ Git integration
+   - **Other platforms:** ตาม documentation ของแต่ละ platform
 
 ### Database
 
-- ใช้ managed PostgreSQL service (เช่น Supabase, Railway, Neon)
-- อัพเดท `DATABASE_URL` ใน production environment
-- รัน migrations:
-  ```bash
-  yarn migrate deploy
-  ```
+1. **ใช้ Managed PostgreSQL Service:**
+   - [Supabase](https://supabase.com/) (แนะนำ - ฟรี tier)
+   - [Railway](https://railway.app/)
+   - [Neon](https://neon.tech/)
+   - [AWS RDS](https://aws.amazon.com/rds/)
+
+2. **Setup Production Database:**
+   ```bash
+   # อัพเดท DATABASE_URL ใน production environment
+   # จากนั้นรัน migrations
+   yarn migrate deploy
+   ```
+
+3. **Seed Production (ถ้าต้องการ):**
+   ```bash
+   yarn seed
+   ```
+
+---
+
+## 💡 Tips & Best Practices
+
+### 1. Version Control
+- อย่า commit `.env` files
+- Commit `prisma/migrations/` สำหรับ production
+- ใช้ `.env.example` เป็น template
+
+### 2. Development Workflow
+- ใช้ `yarn push` สำหรับ development (เร็ว)
+- ใช้ `yarn migrate` สำหรับ production (track changes)
+
+### 3. Code Organization
+- เก็บ components ใน `app/components/`
+- เก็บ utilities ใน `lib/`
+- เก็บ types ใน `lib/types/` หรือ `packages/types/`
+
+### 4. Performance
+- ใช้ Next.js Image component สำหรับ images
+- Enable production optimizations
+- Monitor bundle size
 
 ---
 
 ## 📝 License
 
-MIT
+MIT License - ใช้ได้ฟรีทั้ง commercial และ personal projects
 
 ---
 
-## 👥 Contributors
+## 🤝 Contributing
 
-- Your name here
+Template นี้เป็น open source! ถ้าต้องการ contribute:
+
+1. Fork repository
+2. สร้าง feature branch
+3. Commit changes
+4. Push และเปิด Pull Request
 
 ---
 
-## 📞 Support
+## 📞 Support & Questions
 
-ถ้ามีคำถามหรือพบปัญหา กรุณาเปิด issue ใน repository
+- 📖 อ่าน [Documentation](./web/README.md)
+- 🐛 รายงาน Bug: เปิด [Issue](../../issues)
+- 💡 แนะนำ Feature: เปิด [Discussion](../../discussions)
+- ❓ ถามคำถาม: เปิด [Issue](../../issues) พร้อม label `question`
 
+---
+
+## 🎉 พร้อมเริ่มต้นแล้ว!
+
+Template นี้พร้อมใช้งานแล้ว! เริ่มต้นพัฒนาโปรเจคของคุณได้เลย 🚀
+
+**Happy Coding!** 💻✨
