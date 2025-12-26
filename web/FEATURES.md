@@ -48,7 +48,7 @@
 - ✅ localStorage persistence
 - ✅ Configurable enable/disable
 - 🔄 RTL support (optional)
-- 🔄 Date/Number formatting per locale
+- ✅ Date/Number formatting per locale
 
 ### 3. **Cookie Management** 🔄
 - Cookie consent banner
