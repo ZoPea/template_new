@@ -11,11 +11,14 @@
 - ✅ Fixed/Sticky Navigation
 - ✅ Auto-hide/show Navbar on scroll
 
-### 2. **Toast Notification (Sonner)** 🔄
-- Success/Error/Warning/Info notifications
-- Auto-dismiss with configurable duration
-- Position customization (top-right, top-left, etc.)
-- Action buttons support
+### 2. **Toast Notification (Sonner)** ✅
+- ✅ Success/Error/Warning/Info notifications
+- ✅ Auto-dismiss with configurable duration
+- ✅ Position customization (top-right, top-left, etc.)
+- ✅ Action buttons support
+- ✅ Loading toast
+- ✅ Promise toast
+- ✅ Configurable enable/disable
 
 ### 3. **SEO (Search Engine Optimization)** 🔄
 - Meta tags (title, description, og:image, etc.)
@@ -198,7 +201,7 @@
 
 ### **Phase 1: Core Foundation** (ทำก่อน)
 1. ✅ SPA
-2. 🔄 Toast (Sonner)
+2. ✅ Toast (Sonner)
 3. 🔄 SEO
 4. 🔄 Error Handling
 
@@ -226,7 +229,7 @@
 
 ### **Core (4 features)**
 - ✅ SPA
-- 🔄 Toast
+- ✅ Toast
 - 🔄 SEO
 - 🔄 Error Handling
 

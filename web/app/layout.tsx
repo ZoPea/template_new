@@ -8,6 +8,8 @@ import { LanguageProvider } from "@/lib/contexts/LanguageContext";
 import { themeScript } from "@/lib/utils/theme-script";
 import { languageScript } from "@/lib/utils/language-script";
 import { i18nConfig } from "@/lib/config/i18n";
+import { Toaster } from "sonner";
+import { toastConfig } from "@/lib/config/toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +51,14 @@ export default function RootLayout({
               <main className="min-h-screen pt-16">
                 {children}
               </main>
+              {toastConfig.enabled && (
+                <Toaster
+                  position={toastConfig.position}
+                  duration={toastConfig.duration}
+                  richColors={toastConfig.richColors}
+                  closeButton={toastConfig.closeButton}
+                />
+              )}
             </ClientWrapper>
           </LanguageProvider>
         </ThemeProvider>
