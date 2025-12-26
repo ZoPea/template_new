@@ -4,7 +4,10 @@ import "./globals.css";
 import Navigation from "./components/Navigation";
 import ClientWrapper from "./components/ClientWrapper";
 import { ThemeProvider } from "@/lib/contexts/ThemeContext";
+import { LanguageProvider } from "@/lib/contexts/LanguageContext";
 import { themeScript } from "@/lib/utils/theme-script";
+import { languageScript } from "@/lib/utils/language-script";
+import { i18nConfig } from "@/lib/config/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" suppressHydrationWarning>
+    <html lang={i18nConfig.defaultLocale} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: themeScript,
+            __html: `${themeScript}\n${languageScript}`,
           }}
         />
       </head>
@@ -40,12 +43,14 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <ClientWrapper>
-            <Navigation />
-            <main className="min-h-screen pt-16">
-        {children}
-            </main>
-          </ClientWrapper>
+          <LanguageProvider>
+            <ClientWrapper>
+              <Navigation />
+              <main className="min-h-screen pt-16">
+                {children}
+              </main>
+            </ClientWrapper>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

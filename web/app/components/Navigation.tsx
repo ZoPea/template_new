@@ -4,11 +4,23 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import ThemeToggle from './ThemeToggle'
+import LanguageSwitcher from './LanguageSwitcher'
+import { useLanguage } from '@/lib/contexts/LanguageContext'
+import { getTranslations } from '@/lib/translations'
+import { i18nConfig } from '@/lib/config/i18n'
 
 export default function Navigation() {
   const pathname = usePathname()
+  const { translations } = useLanguage()
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [mounted, setMounted] = useState(false)
+
+  // ใช้ useEffect เพื่อ set mounted หลังจาก component mount แล้ว
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true)
+  }, [])
 
   // ตรวจจับการ scroll
   useEffect(() => {
@@ -36,10 +48,14 @@ export default function Navigation() {
     }
   }, [lastScrollY])
 
+  // ใช้ default locale สำหรับ server-side render เพื่อป้องกัน hydration error
+  // หลังจาก mount แล้วจะใช้ locale จาก context
+  const currentTranslations = mounted ? translations : getTranslations(i18nConfig.defaultLocale)
+  
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/', label: currentTranslations.nav.home },
+    { href: '/about', label: currentTranslations.nav.about },
+    { href: '/contact', label: currentTranslations.nav.contact },
   ]
 
   return (
@@ -52,8 +68,8 @@ export default function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-xl font-bold">
-                Your App
+              <Link href="/" className="text-xl font-bold" suppressHydrationWarning>
+                {currentTranslations.nav.appName}
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -68,6 +84,7 @@ export default function Navigation() {
                         ? 'border-blue-500 text-gray-900 dark:text-gray-100'
                         : 'border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-300'
                     }`}
+                    suppressHydrationWarning
                   >
                     {item.label}
                   </Link>
@@ -75,7 +92,8 @@ export default function Navigation() {
               })}
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
             <ThemeToggle />
           </div>
         </div>
